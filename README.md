@@ -1,1 +1,1 @@
-# predict_generalization_performance_of_neural_networks
+# Generalization performance of neural networks
