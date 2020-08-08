@@ -87,6 +87,7 @@ import os
 from sys import argv, path
 import datetime
 import glob
+import inspect
 
 the_date = datetime.datetime.now().strftime("%y-%m-%d-%H-%M")
 
@@ -126,6 +127,8 @@ if __name__=="__main__" and debug_mode<4:
     from data_io import vprint           # print only in verbose mode
     from data_manager import DataManager # load/save data and get info about them
     from complexity import complexity # complexity measure
+
+    should_pass_submission_dir = 'program_dir' in inspect.getfullargspec(complexity).args
 
     if debug_mode >= 4:
       print('File structure')
@@ -207,11 +210,18 @@ if __name__=="__main__" and debug_mode<4:
                 continue
             tf.keras.backend.clear_session()
             model = D.load_model(mid)
-            measure_val = complexity(model, training_data)
+
+            if should_pass_submission_dir:
+                measure_val = complexity(model, training_data, program_dir=submission_dir)
+            else:
+                measure_val = complexity(model, training_data)
+
             try:
                 measure_val = float(measure_val)
             except:
+                print('Incorrect measure data type!')
                 raise TypeError('Measure should be a scalar float or numpy float but got type: {}'.format(type(measure_val)))
+
             complexity_value[mid] = measure_val
             time_left_over = time_budget - time.time() + start
             if time_left_over <= 0:

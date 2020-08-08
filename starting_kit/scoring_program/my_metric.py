@@ -18,8 +18,13 @@
 import numpy as np
 import scipy as sp
 from mutual_information import conditional_mutual_information
+from mutual_information_v2 import conditional_mutual_information_v2
 
 
 def mutual_information(prediction, reference):
   return conditional_mutual_information(prediction, reference)
+
+
+def mutual_information_v2(prediction, reference):
+  return conditional_mutual_information_v2(prediction, reference)
 
