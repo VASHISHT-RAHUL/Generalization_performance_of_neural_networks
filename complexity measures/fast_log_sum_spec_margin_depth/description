@@ -1,0 +1,1 @@
+Log-Sum of the spectral norms of weight matrices, normalized by depth and margin. Fast estimation of spectral norm done by representing convolution operation as a linear operator and using power method.
